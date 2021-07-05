@@ -1,0 +1,63 @@
+<template>
+    <lightning-card title='Search A Location' icon-name="custom:custom44">
+        <lightning-layout class="slds-align_absolute-center">
+            <lightning-layout-item class='slds-m-around_medium'>
+                <p>Select A Type : </p>
+            </lightning-layout-item>
+            <lightning-layout-item>
+                <lightning-input onchange={searchType} type='radio' name='searchType' label='Search By Location'
+                    value='searchLocation'></lightning-input>
+            </lightning-layout-item>
+
+            <lightning-layout-item>
+                <lightning-input onchange={searchType} type='radio' name='searchType' label='Search By Co-ordinates'
+                    value='searchCoordinates'></lightning-input>
+            </lightning-layout-item>
+        </lightning-layout>
+
+        <template if:true={showByLocation}>
+            <lightning-layout class="slds-align_absolute-center">
+                <lightning-layout-item>
+                    <lightning-combobox name="country" label="Select Country" value={selectedCountry}
+                        options={countryValues} onchange={handleCountryChange}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+
+                <lightning-layout-item class='slds-m-around_medium'>
+                    <lightning-combobox name="state" label="Select State" value={selectedState} options={stateValues}
+                        onchange={handleStateChange}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+
+                <lightning-layout-item>
+                    <lightning-input type='text' label='Enter a City' name='keyword' onchange={handleCityChange}
+                        value={cityName}>
+                    </lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+
+        <template if:true={showByCoordinates}>
+            <lightning-layout class="slds-align_absolute-center">
+                <lightning-layout-item class='slds-m-around_medium'>
+                    <lightning-input type='text' label='Longitudes' name='longitude' value={longitutdeValue} onchange={handleLongitute}> 
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item class='slds-m-around_medium'>
+                    <lightning-input type='text' label='Latitudes' name='latitude' value={latitudeValue} onchange={handleLatitude}>
+                    </lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+
+        <lightning-button class='slds-m-around_medium slds-align_absolute-center' disabled={disbaleSearchBtn}
+            icon-name="utility:search" variant='brand' label='Search' icon-position="right" onclick={searchOnMap}>
+        </lightning-button>
+
+        <template if:true={showMap}>
+            <lightning-card title ='Maps' icon-name="custom:custom62">
+                <lightning-map map-markers={markers} list-view="visible"></lightning-map>
+            </lightning-card>
+        </template>
+    </lightning-card>
+</template>
